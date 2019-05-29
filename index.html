@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>click</button>
+  <ul class="nav">
+    <li><a href="#" data-i18n="nav.home"></a></li>
+    <li><a href="#" data-i18n="nav.page1"></a></li>
+    <li><a href="#" data-i18n="nav.page2"></a></li>
+  </ul>
+
+  <div class="content">
+    <input data-i18n="[placeholder]input.placeholder; [title]input.placeholder" />
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/i18next/i18next.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.0/jquery-i18next.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/3.0.1/i18nextBrowserLanguageDetector.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-xhr-backend/2.0.1/i18nextXHRBackend.min.js"></script>
+  <script>
+    var initLng = 'cn';
+
+    i18next
+      .use(i18nextXHRBackend)
+      .use(i18nextBrowserLanguageDetector)
+      .init({
+        lng: initLng,
+        ns: ["translation"],
+        fallbackLng: ["en", "cn"],
+        debug: true,
+        backend: {
+          loadPath: '/locales/{{lng}}/{{ns}}.json',
+          crossDomain: true
+        },
+
+        // resources: { // evtl. load via xhr https://github.com/i18next/i18next-xhr-backend
+        //   en: {
+        //     translation: {
+        //       input: {
+        //         placeholder: "a placeholder"
+        //       },
+        //       nav: {
+        //         home: 'hello',
+        //         page1: 'Page One',
+        //         page2: 'Page Two'
+        //       }
+        //     }
+        //   },
+        //   cn: {
+        //     translation: {
+        //       input: {
+        //         placeholder: "佔位符"
+        //       },
+        //       nav: {
+        //         home: '哈囉',
+        //         page1: '第一頁',
+        //         page2: '第二頁'
+        //       }
+        //     }
+        //   }
+        // }
+      }, function (err, t) {
+        jqueryI18next.init(i18next, $);
+        $('body').localize();
+      });
+
+    $('button').on('click', function () {
+      // localize("body", {lng: 'en'});
+      // $('body').localize({lng: 'en'});
+      i18next.changeLanguage('en').then(function () {
+        jqueryI18next.init(i18next, $);
+        $('body').localize();
+      })
+    })
+  </script>
+</body>
+
+</html>

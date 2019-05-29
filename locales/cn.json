@@ -1,0 +1,14 @@
+{
+  "cn": {
+    "translation": {
+      "input": {
+        "placeholder": "佔位符"
+      },
+      "nav": {
+        "home": "哈囉",
+        "page1": "第一頁",
+        "page2": "第二頁"
+      }
+    }
+  }
+}
